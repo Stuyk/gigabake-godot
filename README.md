@@ -1,4 +1,4 @@
-# GigaBake
+# GigaBake for Godot 4.3+
 
 Bake your 3D CSG Scenes in a single click, and build occluders.
 
