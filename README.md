@@ -20,7 +20,6 @@ Your game scene should be setup as follows:
 
 ```sh
 Node3D
-- OccluderInstance3D
 - CSGCombiner3D
 --- Everything Else CSG Related
 ```
