@@ -4,6 +4,8 @@ Bake your 3D CSG Scenes in a single click, and build occluders.
 
 [![GigaBake Video](https://img.youtube.com/vi/YgN4bHHGhKA/0.jpg)](https://www.youtube.com/watch?v=YgN4bHHGhKA)
 
+_The above is a video demo if you're confused by what this does._
+
 ## Install
 
 Place `gigabake.gd` and `plugin.cfg` in your `addons/gigabake` folder of your game.
