@@ -22,3 +22,12 @@ Node3D
 - CSGCombiner3D
 --- Everything Else CSG Related
 ```
+
+## Changelog
+
+```
+1.0.1
+
+- Modified the Occluder creation to not require the node to be present
+- Occluder is now saved and loaded from disk
+```
