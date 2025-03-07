@@ -20,8 +20,6 @@ func find_node_by_name(base_node: Node, name = "Node3DEditor") -> Node:
 	
 func _enter_tree():
 	toolbar_container = find_node_by_name(find_node_by_name(get_editor_interface().get_base_control(), "Node3DEditor"), "HBoxContainer")
-	if (!toolbar_container):
-		return;
 
 	button_giga_bake = Button.new()
 	button_giga_bake.text = BUTTON_NAME;
@@ -34,7 +32,7 @@ func _exit_tree():
 		button_giga_bake.queue_free()
 
 func _on_button_pressed():
-	print("[GigaBake] Started - Ensure game is closed when baking!");
+	print("[GigaBake] Started");
 	var node_root = get_editor_interface().get_edited_scene_root();
 	
 	var node_csg: CSGCombiner3D;
@@ -56,10 +54,6 @@ func _on_button_pressed():
 		print("[GigaBake] Failed to find CSG Combiner for Baking")
 		return;
 		
-	if (node_occluder):
-		node_occluder.queue_free();
-		print("[GigaBake] Removed old NodeOccluder3D");
-
 	if (node_csg.use_collision):
 		node_csg.use_collision = false;
 		print("[GigaBake] Turned off Collision for CSG Mesh, not necessary.");
@@ -101,28 +95,12 @@ func _on_button_pressed():
 	
 	get_editor_interface().mark_scene_as_unsaved();
 
-	node_occluder = OccluderInstance3D.new();
-	node_root.add_child(node_occluder);
-	node_occluder.owner = node_root;
-	node_occluder.name = "OccluderInstance3D";
-
 	# Set Occluder after Bake
 	if (!node_occluder):
 		print("[GigaBake] Failed to find Occluder for GigaBake");
 		return;
-		
-	var occluder = create_occluder_from_mesh(instance.mesh)
-	var occ_path = node_root.scene_file_path.replace(".tscn", ".occ");
-	if (FileAccess.file_exists(occ_path)):
-		DirAccess.remove_absolute(occ_path);
 	
-	var result = ResourceSaver.save(occluder, occ_path)
-	if result == OK:
-		print("[GigaBake] Occluder saved at: ", occ_path)
-		node_occluder.occluder = load(occ_path);
-	else:
-		print("[GigaBake] Failed to save occluder!")
-	
+	node_occluder.occluder = create_occluder_from_mesh(instance.mesh)
 	get_editor_interface().mark_scene_as_unsaved();
 	print("[GigaBake] Complete");
 
